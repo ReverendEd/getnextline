@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsehr <tsehr@student.42.fr>                +#+  +:+       +#+        */
+/*   By: vtouffet <vtouffet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/06 23:50:13 by tsehr             #+#    #+#             */
-/*   Updated: 2019/05/30 08:24:14 by tsehr            ###   ########.fr       */
+/*   Created: 2017/08/19 15:49:42 by vtouffet          #+#    #+#             */
+/*   Updated: 2017/11/09 10:54:55 by vtouffet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,21 @@
 
 char	*ft_strtrim(char const *s)
 {
-	int i;
-	int j;
+	char			*result;
+	unsigned int	start;
+	unsigned int	size;
+	unsigned int	spaces_count;
 
-	i = 0;
-	if (!*s || s[i] == '\0')
-		return ("");
-	while (s[i] == ' ' || s[i] == '\n' || s[i] == '\t')
-	{
-		i++;
-		if (!s[i])
-			return ("");
-	}
-	j = i;
-	while (s[j])
-	{
-		j++;
-	}
-	j--;
-	while (s[j] == ' ' || s[j] == '\n' || s[j] == '\t')
-	{
-		j--;
-	}
-	return (ft_strsub(s, i, (j - i + 1)));
+	if (!s)
+		return (NULL);
+	size = (unsigned int)ft_strlen((char*)s);
+	spaces_count = ft_strcntfirstchar((char*)s, " \n\t");
+	start = spaces_count;
+	if (size > spaces_count)
+		spaces_count += ft_strcntlastchar((char*)s, " \n\t");
+	size -= spaces_count;
+	if (!(result = ft_memalloc((size_t)size + 1)))
+		return (NULL);
+	result = ft_strncpy(result, (char*)s + start, size);
+	return (result);
 }

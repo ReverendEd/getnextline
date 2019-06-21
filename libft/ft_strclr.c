@@ -3,26 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strclr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsehr <tsehr@student.42.fr>                +#+  +:+       +#+        */
+/*   By: vtouffet <vtouffet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/06 09:14:44 by tsehr             #+#    #+#             */
-/*   Updated: 2019/05/30 00:06:31 by tsehr            ###   ########.fr       */
+/*   Created: 2017/08/19 13:41:50 by vtouffet          #+#    #+#             */
+/*   Updated: 2017/11/09 10:51:33 by vtouffet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
 void	ft_strclr(char *s)
 {
-	int i;
+	char	*ptr;
 
-	if (*s)
-	{
-		i = 0;
-		while (s[i])
-		{
-			s[i] = '\0';
-			i++;
-		}
-	}
+	ptr = s;
+	while (ptr && *ptr)
+		*(ptr++) = '\0';
 }

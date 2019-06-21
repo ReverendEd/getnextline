@@ -3,32 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsehr <tsehr@student.42.fr>                +#+  +:+       +#+        */
+/*   By: vtouffet <vtouffet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/01 16:00:37 by tsehr             #+#    #+#             */
-/*   Updated: 2019/05/29 11:16:25 by tsehr            ###   ########.fr       */
+/*   Created: 2017/08/18 19:44:19 by vtouffet          #+#    #+#             */
+/*   Updated: 2017/11/09 10:50:02 by vtouffet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
 #include "libft.h"
 
 void	*ft_memmove(void *dst, const void *src, size_t len)
 {
 	size_t				i;
-	unsigned char		*temp;
-	const unsigned char	*temp2;
+	unsigned char		*ptr;
+	const unsigned char	*ptr2;
 
-	if (dst == NULL || src == NULL)
-		return (dst);
+	ptr = (unsigned char*)dst;
+	ptr2 = (unsigned char*)src;
 	i = 0;
-	temp = (unsigned char *)dst;
-	temp2 = (unsigned char *)src;
-	if (temp2 < temp)
+	if (ptr2 < ptr)
 		while (++i <= len)
-			temp[len - i] = temp2[len - i];
+			ptr[len - i] = ptr2[len - i];
 	else
 		while (len-- > 0)
-			*(temp++) = *(temp2++);
+			*(ptr++) = *(ptr2++);
 	return (dst);
 }

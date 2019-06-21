@@ -3,14 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strncpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsehr <tsehr@student.42.fr>                +#+  +:+       +#+        */
+/*   By: vtouffet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/01 21:57:11 by tsehr             #+#    #+#             */
-/*   Updated: 2019/05/24 15:32:14 by tsehr            ###   ########.fr       */
+/*   Created: 2017/07/06 13:51:01 by vtouffet          #+#    #+#             */
+/*   Updated: 2017/11/10 13:03:53 by vtouffet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
 #include "libft.h"
 
 char	*ft_strncpy(char *dest, const char *src, size_t n)

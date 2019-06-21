@@ -3,60 +3,52 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsehr <tsehr@student.42.fr>                +#+  +:+       +#+        */
+/*   By: exam <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/17 10:02:16 by tsehr             #+#    #+#             */
-/*   Updated: 2019/05/29 23:49:05 by tsehr            ###   ########.fr       */
+/*   Created: 2017/07/28 10:26:03 by exam              #+#    #+#             */
+/*   Updated: 2017/11/09 10:45:07 by vtouffet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include "libft.h"
 
-static int				get_size(unsigned int nb)
+static int		get_nb_size(unsigned int nb)
 {
-	unsigned int	i;
+	unsigned int	size;
 
-	i = 0;
+	size = 0;
 	while (nb >= 10)
 	{
 		nb /= 10;
-		i++;
+		++size;
 	}
-	return (i + 1);
+	return (size + 1);
 }
 
-static unsigned int		is_neg(int nbr)
+char			*ft_itoa(int nbr)
 {
+	char			*str;
+	unsigned int	nb;
+	unsigned int	index;
+	unsigned int	size;
+
 	if (nbr < 0)
-		return ((unsigned int)(nbr * -1));
+		nb = (unsigned int)(nbr * -1);
 	else
-		return ((unsigned int)nbr);
-}
-
-char					*ft_itoa(int nbr)
-{
-	char			*result;
-	unsigned int	num;
-	unsigned int	i;
-	unsigned int	j;
-
-	num = is_neg(nbr);
-	j = (unsigned int)get_size(num);
-	i = 0;
-	result = (char*)malloc(sizeof(char) * (j + 1 + (nbr < 0 ? 1 : 0)));
-	if (!result)
+		nb = (unsigned int)nbr;
+	size = (unsigned int)get_nb_size(nb);
+	index = 0;
+	if (!(str = (char*)malloc(sizeof(char) * (size + 1 + (nbr < 0 ? 1 : 0)))))
 		return (0);
-	if (nbr < 0 && (result[i] = '-'))
-		j++;
-	i = j - 1;
-	while (num >= 10)
+	if (nbr < 0 && (str[index] = '-'))
+		size++;
+	index = size - 1;
+	while (nb >= 10)
 	{
-		result[i] = (char)(num % 10 + 48);
-		num /= 10;
-		i--;
+		str[index--] = (char)(nb % 10 + 48);
+		nb /= 10;
 	}
-	result[i] = (char)(num % 10 + 48);
-	result[j] = '\0';
-	return (result);
+	str[index] = (char)(nb % 10 + 48);
+	str[size] = '\0';
+	return (str);
 }

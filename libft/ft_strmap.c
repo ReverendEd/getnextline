@@ -3,35 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsehr <tsehr@student.42.fr>                +#+  +:+       +#+        */
+/*   By: vtouffet <vtouffet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/06 14:08:40 by tsehr             #+#    #+#             */
-/*   Updated: 2019/05/30 00:08:34 by tsehr            ###   ########.fr       */
+/*   Created: 2017/08/19 13:51:04 by vtouffet          #+#    #+#             */
+/*   Updated: 2017/11/09 10:52:47 by vtouffet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "libft.h"
 
-char	*ft_strmap(char const *s, char (*f) (char))
+char	*ft_strmap(char const *s, char (*f)(char))
 {
-	char	*new;
-	int		i;
+	char	*ptr;
+	char	*ptr2;
+	char	*result;
 
-	if (!*s || !*f)
+	if (!s || !(result = ft_memalloc((size_t)ft_strlen((char*)s) + 1)))
 		return (NULL);
-	i = 0;
-	while (s[i])
-		i++;
-	new = (char *)malloc(sizeof(char) * (i + 1));
-	if (!new)
-		return (NULL);
-	i = 0;
-	while (s[i])
-	{
-		new[i] = f(s[i]);
-		i++;
-	}
-	new[i] = '\0';
-	return (new);
+	ptr = (char*)s;
+	ptr2 = result;
+	while (*ptr)
+		*(ptr2++) = f(*(ptr++));
+	return (result);
 }
