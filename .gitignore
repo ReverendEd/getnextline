@@ -1,0 +1,6 @@
+/.vscode
+._.DS_Store
+/backup
+compile.sh
+a.out
+test_file.txt
