@@ -6,7 +6,7 @@
 /*   By: tsehr <tsehr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/30 19:37:41 by tsehr             #+#    #+#             */
-/*   Updated: 2019/06/18 23:56:51 by tsehr            ###   ########.fr       */
+/*   Updated: 2019/06/23 19:04:39 by tsehr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ int		get_next_line(const int fd, char **line)
 	int			line_length;
 	int			buffer_status;
 
+	REQUIRE((fd >= 0 && line));
 	if (!pool[fd])
 		pool[fd] = ft_strnew(10000000);
-	REQUIRE((fd >= 0 && line && pool[fd]));
 	line_length = save_line_and_return_index(pool, fd, line);
 	if (pool[fd][line_length] == '\0')
 	{
@@ -92,6 +92,8 @@ int		buffer_pool(char *pool[255], int fd, int pool_index, int v_flag)
 	{
 		buffer_index = 0;
 		buffer_length = read(fd, buffer, BUFF_SIZE);
+		if (buffer_length == 0)
+			return (v_flag = handle_file_end(pool, fd, pool_index));
 		REQUIRE((buffer_length != -1));
 		pool_length += buffer_length;
 		while (pool_index < pool_length)
@@ -102,8 +104,6 @@ int		buffer_pool(char *pool[255], int fd, int pool_index, int v_flag)
 			pool_index++;
 			buffer_index++;
 		}
-		if (buffer_length == 0)
-			return (v_flag = handle_file_end(pool, fd, pool_index));
 	}
 	pool[fd][pool_index] = '\0';
 	return (0);
@@ -111,27 +111,13 @@ int		buffer_pool(char *pool[255], int fd, int pool_index, int v_flag)
 
 int		handle_file_end(char *pool[255], int fd, int pool_index)
 {
+	if (ft_strlen(pool[fd]) == 0)
+	{
+		ft_bzero(pool[fd], ft_strlen(pool[fd]));
+		return (1);
+	}
 	pool[fd][pool_index] = '\n';
 	pool_index++;
 	pool[fd][pool_index] = '\0';
 	return (1);
-}
-
-int main(int argc, char **argv)
-{
-	int fd;
-	int ret = 0;
-	char *line;
-	int i = 0;
-	REQUIRE((argc >= 2));
-
-	fd = open(argv[1], O_RDONLY);
-	while ((ret = get_next_line(fd, &line)))
-	{
-		printf("this is my return: [%d]\n", ret);
-		printf("and this is my line: %s\n_____________\n", line);
-		i++;
-	}
-
-	return (0);
 }
