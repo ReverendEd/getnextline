@@ -1,27 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcpy.c                                        :+:      :+:    :+:   */
+/*   ft_extend_string.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tsehr <tsehr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/07/06 11:11:18 by vtouffet          #+#    #+#             */
-/*   Updated: 2019/07/03 16:49:10 by tsehr            ###   ########.fr       */
+/*   Created: 2019/07/03 16:01:57 by tsehr             #+#    #+#             */
+/*   Updated: 2019/07/03 16:42:11 by tsehr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include <stdlib.h>
 
-char	*ft_strcpy(char *dest, const char *src)
+char	*ft_extend_string(char *src, size_t size)
 {
-	unsigned int i;
+	unsigned int	i;
+	char			*temp;
 
 	i = 0;
 	while (src[i] != '\0')
 	{
-		dest[i] = src[i];
+		i++;
+		size++;
+	}
+	i = 0;
+	temp = ft_strnew(size);
+	while (src[i])
+	{
+		temp[i] = src[i];
 		i++;
 	}
-	dest[i] = src[i];
-	return (dest);
+	temp[i] = '\0';
+	free(src);
+	return (temp);
 }

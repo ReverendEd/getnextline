@@ -6,10 +6,11 @@
 /*   By: tsehr <tsehr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/30 19:37:41 by tsehr             #+#    #+#             */
-/*   Updated: 2019/06/23 19:04:39 by tsehr            ###   ########.fr       */
+/*   Updated: 2019/07/03 22:29:27 by tsehr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include <stdio.h>
 #include "get_next_line.h"
 
@@ -21,7 +22,7 @@ int		get_next_line(const int fd, char **line)
 
 	REQUIRE((fd >= 0 && line));
 	if (!pool[fd])
-		pool[fd] = ft_strnew(10000000);
+		pool[fd] = ft_strnew(50);
 	line_length = save_line_and_return_index(pool, fd, line);
 	if (pool[fd][line_length] == '\0')
 	{
@@ -49,7 +50,7 @@ void	clean_pool(char *pool[255], int fd, int line_end)
 	char	*temp;
 
 	next_line_start = line_end + 1;
-	temp = ft_strnew(line_end);
+	temp = ft_strnew(line_end + BUFF_SIZE);
 	pool_start = 0;
 	while (pool[fd][next_line_start])
 	{
@@ -58,8 +59,9 @@ void	clean_pool(char *pool[255], int fd, int line_end)
 		next_line_start++;
 	}
 	temp[pool_start] = '\0';
-	ft_bzero(pool[fd], 10000000);
+	ft_bzero(pool[fd], ft_strlen(pool[fd]));
 	pool[fd] = ft_strcpy(pool[fd], temp);
+	free(temp);
 }
 
 int		save_line_and_return_index(char *pool[255], int fd, char **line)
@@ -80,7 +82,7 @@ int		save_line_and_return_index(char *pool[255], int fd, char **line)
 	return (line_length);
 }
 
-int		buffer_pool(char *pool[255], int fd, int pool_index, int v_flag)
+int		buffer_pool(char *pool[9973], int fd, int pool_index, int v_flag)
 {
 	char	buffer[BUFF_SIZE + 1];
 	int		pool_length;
@@ -95,6 +97,7 @@ int		buffer_pool(char *pool[255], int fd, int pool_index, int v_flag)
 		if (buffer_length == 0)
 			return (v_flag = handle_file_end(pool, fd, pool_index));
 		REQUIRE((buffer_length != -1));
+		pool[fd] = ft_extend_string(pool[fd], (size_t)buffer_length);
 		pool_length += buffer_length;
 		while (pool_index < pool_length)
 		{
@@ -121,3 +124,22 @@ int		handle_file_end(char *pool[255], int fd, int pool_index)
 	pool[fd][pool_index] = '\0';
 	return (1);
 }
+
+// int main(int argc, char **argv)
+// {
+// 	int fd;
+// 	int ret = 0;
+// 	char *line;
+// 	int i = 0;
+// 	REQUIRE((argc >= 2));
+
+// 	fd = open(argv[1], O_RDONLY);
+// 	while ((ret = get_next_line(fd, &line)))
+// 	{
+// 		printf("this is my return: [%d]\n", ret);
+// 		printf("and this is my line: %s\n_____________\n", line);
+// 		i++;
+// 	}
+
+// 	return (0);
+// }

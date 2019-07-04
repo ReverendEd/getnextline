@@ -6,14 +6,14 @@
 /*   By: tsehr <tsehr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/30 19:58:35 by tsehr             #+#    #+#             */
-/*   Updated: 2019/06/23 18:38:51 by tsehr            ###   ########.fr       */
+/*   Updated: 2019/07/03 22:30:16 by tsehr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-# define BUFF_SIZE 7
+# define BUFF_SIZE 2056
 
 # define REQUIRE(x) if (!x) return (-1)
 
