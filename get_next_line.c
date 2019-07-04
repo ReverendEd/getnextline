@@ -6,7 +6,7 @@
 /*   By: tsehr <tsehr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/30 19:37:41 by tsehr             #+#    #+#             */
-/*   Updated: 2019/07/03 22:29:27 by tsehr            ###   ########.fr       */
+/*   Updated: 2019/07/03 22:51:50 by tsehr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,7 @@ int		buffer_pool(char *pool[9973], int fd, int pool_index, int v_flag)
 	while (!v_flag)
 	{
 		buffer_index = 0;
-		buffer_length = read(fd, buffer, BUFF_SIZE);
-		if (buffer_length == 0)
+		if ((buffer_length = read(fd, buffer, BUFF_SIZE)) == 0)
 			return (v_flag = handle_file_end(pool, fd, pool_index));
 		REQUIRE((buffer_length != -1));
 		pool[fd] = ft_extend_string(pool[fd], (size_t)buffer_length);
@@ -112,7 +111,7 @@ int		buffer_pool(char *pool[9973], int fd, int pool_index, int v_flag)
 	return (0);
 }
 
-int		handle_file_end(char *pool[255], int fd, int pool_index)
+int		handle_file_end(char *pool[9973], int fd, int pool_index)
 {
 	if (ft_strlen(pool[fd]) == 0)
 	{
@@ -124,22 +123,3 @@ int		handle_file_end(char *pool[255], int fd, int pool_index)
 	pool[fd][pool_index] = '\0';
 	return (1);
 }
-
-// int main(int argc, char **argv)
-// {
-// 	int fd;
-// 	int ret = 0;
-// 	char *line;
-// 	int i = 0;
-// 	REQUIRE((argc >= 2));
-
-// 	fd = open(argv[1], O_RDONLY);
-// 	while ((ret = get_next_line(fd, &line)))
-// 	{
-// 		printf("this is my return: [%d]\n", ret);
-// 		printf("and this is my line: %s\n_____________\n", line);
-// 		i++;
-// 	}
-
-// 	return (0);
-// }
