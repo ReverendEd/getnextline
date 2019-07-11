@@ -6,11 +6,12 @@
 /*   By: tsehr <tsehr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/30 19:37:41 by tsehr             #+#    #+#             */
-/*   Updated: 2019/07/10 13:39:42 by tsehr            ###   ########.fr       */
+/*   Updated: 2019/07/03 22:51:50 by tsehr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include <stdio.h>
 #include "get_next_line.h"
 
 int		get_next_line(const int fd, char **line)
@@ -122,4 +123,3 @@ int		handle_file_end(char *pool[9973], int fd, int pool_index)
 	pool[fd][pool_index] = '\0';
 	return (1);
 }
-
