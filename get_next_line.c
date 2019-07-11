@@ -6,7 +6,7 @@
 /*   By: tsehr <tsehr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/30 19:37:41 by tsehr             #+#    #+#             */
-/*   Updated: 2019/07/10 13:39:42 by tsehr            ###   ########.fr       */
+/*   Updated: 2019/07/11 09:38:48 by tsehr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 int		get_next_line(const int fd, char **line)
 {
-	static char	*pool[255];
+	static char	*pool[9973];
 	int			line_length;
 	int			buffer_status;
 
@@ -42,7 +42,7 @@ int		get_next_line(const int fd, char **line)
 	return (-1);
 }
 
-void	clean_pool(char *pool[255], int fd, int line_end)
+void	clean_pool(char *pool[9973], int fd, int line_end)
 {
 	int		pool_start;
 	int		next_line_start;
@@ -63,7 +63,7 @@ void	clean_pool(char *pool[255], int fd, int line_end)
 	free(temp);
 }
 
-int		save_line_and_return_index(char *pool[255], int fd, char **line)
+int		save_line_and_return_index(char *pool[9973], int fd, char **line)
 {
 	int	line_length;
 
@@ -122,4 +122,3 @@ int		handle_file_end(char *pool[9973], int fd, int pool_index)
 	pool[fd][pool_index] = '\0';
 	return (1);
 }
-
