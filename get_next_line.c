@@ -6,7 +6,7 @@
 /*   By: tsehr <tsehr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/30 19:37:41 by tsehr             #+#    #+#             */
-/*   Updated: 2019/07/11 09:38:48 by tsehr            ###   ########.fr       */
+/*   Updated: 2019/07/24 19:24:08 by tsehr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int		get_next_line(const int fd, char **line)
 	int			line_length;
 	int			buffer_status;
 
-	REQUIRE((fd >= 0 && line));
+	REQUIRE((fd >= 0 && line && fd < 65536));
 	if (!pool[fd])
 		pool[fd] = ft_strnew(50);
 	line_length = save_line_and_return_index(pool, fd, line);
